@@ -2,6 +2,7 @@ import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig, type UserConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 
 export default defineConfig({
   server: {
@@ -13,11 +14,12 @@ export default defineConfig({
       clientPort: 64999,
     },
   },
-  plugins: [
-    reactRouter(),
-    tsconfigPaths(),
-    tailwindcss(),
-  ],
+  plugins: [reactRouter(), tsconfigPaths(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./app"),
+    },
+  },
   build: {
     assetsInlineLimit: 0,
   },

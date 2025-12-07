@@ -23,25 +23,30 @@ A modern, full-stack starter template for building web applications with **Vite*
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <your-repo-url>
    cd vite-react-prisma-starter
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up the database**
+
    ```bash
    npm run setup
    ```
+
    This will:
    - Generate the Prisma Client
    - Run database migrations
 
 4. **Start the development server**
+
    ```bash
    npm run dev
    ```
@@ -95,6 +100,7 @@ vite-react-prisma-starter/
 ### Database Schema
 
 The schema includes example `User` and `Post` models with:
+
 - `@map` attributes for snake_case column names
 - `@@map` attributes for plural table names
 - Relations and cascade deletes
@@ -189,6 +195,7 @@ Learn more in the [Vitest docs](https://vitest.dev/) and [Testing Library docs](
 By default, this template uses SQLite for development. To switch to PostgreSQL or MySQL:
 
 1. **Update `prisma/schema.prisma`**
+
    ```prisma
    datasource db {
      provider = "postgresql" // or "mysql"
@@ -196,6 +203,7 @@ By default, this template uses SQLite for development. To switch to PostgreSQL o
    ```
 
 2. **Update `.env`**
+
    ```env
    DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
    ```
@@ -207,11 +215,11 @@ By default, this template uses SQLite for development. To switch to PostgreSQL o
 
 ### Database Providers
 
-| Database   | Free Tier Options |
-| ---------- | ----------------- |
+| Database   | Free Tier Options                                                                              |
+| ---------- | ---------------------------------------------------------------------------------------------- |
 | PostgreSQL | [Supabase](https://supabase.com/), [Neon](https://neon.tech/), [Railway](https://railway.app/) |
-| MySQL      | [PlanetScale](https://planetscale.com/), [Railway](https://railway.app/) |
-| MongoDB    | [MongoDB Atlas](https://www.mongodb.com/atlas) |
+| MySQL      | [PlanetScale](https://planetscale.com/), [Railway](https://railway.app/)                       |
+| MongoDB    | [MongoDB Atlas](https://www.mongodb.com/atlas)                                                 |
 
 ## Deployment
 

@@ -3,7 +3,12 @@
     "sqlite": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db-path", "prisma/dev.sqlite"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "prisma/dev.sqlite"
+      ]
     },
     "github": {
       "type": "stdio",
@@ -12,6 +17,12 @@
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-github-token-here>"
       }
+    },
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "env": {}
     }
   }
 }

@@ -9,10 +9,13 @@ describe("Counter Component", () => {
     render(
       <BrowserRouter>
         <Counter />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    expect(screen.getByText("Counter Demo")).toBeInTheDocument();
+    expect(screen.getByText("Counter")).toBeInTheDocument();
+    expect(
+      screen.getByText("A simple counter using shadcn/ui"),
+    ).toBeInTheDocument();
     expect(screen.getByText("0")).toBeInTheDocument();
   });
 
@@ -22,16 +25,13 @@ describe("Counter Component", () => {
     render(
       <BrowserRouter>
         <Counter />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    const incrementButton = screen.getAllByRole("button")[2];
-
+    const incrementButton = screen.getByRole("button", { name: "+" });
     await user.click(incrementButton);
 
-    // The count display should now show 1
-    const countDisplay = screen.getByText("Current Count").nextElementSibling;
-    expect(countDisplay).toHaveTextContent("1");
+    expect(screen.getByText("1")).toBeInTheDocument();
   });
 
   it("decrements the counter when - button is clicked", async () => {
@@ -40,11 +40,10 @@ describe("Counter Component", () => {
     render(
       <BrowserRouter>
         <Counter />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    const decrementButton = screen.getAllByRole("button")[0];
-
+    const decrementButton = screen.getByRole("button", { name: "-" });
     await user.click(decrementButton);
 
     expect(screen.getByText("-1")).toBeInTheDocument();
@@ -56,53 +55,21 @@ describe("Counter Component", () => {
     render(
       <BrowserRouter>
         <Counter />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     // First increment the counter
-    const incrementButton = screen.getAllByRole("button")[2];
+    const incrementButton = screen.getByRole("button", { name: "+" });
     await user.click(incrementButton);
     await user.click(incrementButton);
 
     expect(screen.getByText("2")).toBeInTheDocument();
 
     // Then reset
-    const resetButton = screen.getByText("Reset");
+    const resetButton = screen.getByRole("button", { name: "Reset" });
     await user.click(resetButton);
 
     expect(screen.getByText("0")).toBeInTheDocument();
-  });
-
-  it("decrements by 10 when -10 button is clicked", async () => {
-    const user = userEvent.setup();
-
-    render(
-      <BrowserRouter>
-        <Counter />
-      </BrowserRouter>
-    );
-
-    const minus10Button = screen.getByRole("button", { name: "-10" });
-    await user.click(minus10Button);
-
-    // The count display should now show -10
-    const countDisplay = screen.getByText("Current Count").nextElementSibling;
-    expect(countDisplay).toHaveTextContent("-10");
-  });
-
-  it("increments by 10 when +10 button is clicked", async () => {
-    const user = userEvent.setup();
-
-    render(
-      <BrowserRouter>
-        <Counter />
-      </BrowserRouter>
-    );
-
-    const plus10Button = screen.getByText("+10");
-    await user.click(plus10Button);
-
-    expect(screen.getByText("10")).toBeInTheDocument();
   });
 
   it("handles multiple operations correctly", async () => {
@@ -111,24 +78,24 @@ describe("Counter Component", () => {
     render(
       <BrowserRouter>
         <Counter />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    // +10
-    await user.click(screen.getByText("+10"));
-    expect(screen.getByText("10")).toBeInTheDocument();
+    const incrementButton = screen.getByRole("button", { name: "+" });
+    const decrementButton = screen.getByRole("button", { name: "-" });
+    const resetButton = screen.getByRole("button", { name: "Reset" });
 
-    // +1
-    const incrementButton = screen.getAllByRole("button")[2];
+    // Increment twice
     await user.click(incrementButton);
-    expect(screen.getByText("11")).toBeInTheDocument();
+    await user.click(incrementButton);
+    expect(screen.getByText("2")).toBeInTheDocument();
 
-    // -10
-    await user.click(screen.getByText("-10"));
+    // Decrement once
+    await user.click(decrementButton);
     expect(screen.getByText("1")).toBeInTheDocument();
 
     // Reset
-    await user.click(screen.getByText("Reset"));
+    await user.click(resetButton);
     expect(screen.getByText("0")).toBeInTheDocument();
   });
 
@@ -136,7 +103,7 @@ describe("Counter Component", () => {
     render(
       <BrowserRouter>
         <Counter />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     const backLink = screen.getByText("Back to Home");

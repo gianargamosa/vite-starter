@@ -82,7 +82,6 @@ module.exports = {
         ".eslintrc.cjs",
         "vite.config.{js,ts}",
         ".graphqlrc.{js,ts}",
-        "shopify.server.{js,ts}",
         "**/*.server.{js,ts}",
       ],
       env: {
@@ -90,7 +89,5 @@ module.exports = {
       },
     },
   ],
-  globals: {
-    shopify: "readonly"
-  },
+  globals: {},
 };
