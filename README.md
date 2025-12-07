@@ -11,6 +11,7 @@ A modern, full-stack starter template for building web applications with **Vite*
 - 🎨 **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
 - 📦 **SQLite** - Lightweight database (easily swap for PostgreSQL/MySQL)
 - 🔧 **TypeScript** - Full type safety across the stack
+- 🧪 **[Vitest](https://vitest.dev/)** - Fast unit testing with React Testing Library
 
 ## Quick Start
 
@@ -57,6 +58,9 @@ A modern, full-stack starter template for building web applications with **Vite*
 - `npm run setup` - Generate Prisma Client and run migrations
 - `npm run lint` - Run ESLint
 - `npm run typecheck` - Run TypeScript type checking
+- `npm test` - Run tests in watch mode
+- `npm run test:ui` - Run tests with visual UI
+- `npm run test:run` - Run tests once (CI mode)
 
 ## Project Structure
 
@@ -67,7 +71,9 @@ vite-react-prisma-starter/
 │   │   ├── _index/          # Homepage route
 │   │   │   ├── route.tsx
 │   │   │   └── styles.module.css
-│   │   └── counter.tsx      # Counter demo page
+│   │   └── counter/         # Counter demo page
+│   │       ├── route.tsx
+│   │       └── route.test.tsx
 │   ├── db.server.ts         # Prisma client instance
 │   ├── root.tsx             # Root layout
 │   ├── entry.server.tsx     # Server entry point
@@ -78,6 +84,8 @@ vite-react-prisma-starter/
 │   └── dev.sqlite           # SQLite database (gitignored)
 ├── prisma.config.ts         # Prisma 7 configuration
 ├── vite.config.ts           # Vite configuration
+├── vitest.config.ts         # Vitest configuration
+├── vitest.setup.ts          # Vitest setup file
 ├── tailwind.config.ts       # Tailwind configuration (if needed)
 └── .env                     # Environment variables
 ```
@@ -120,6 +128,61 @@ Routes are automatically generated from files in `app/routes/`:
 - `app/routes/blog.$slug.tsx` → `/blog/:slug`
 
 Learn more in the [React Router docs](https://reactrouter.com/start/framework/routing).
+
+## Testing
+
+This template comes with Vitest and React Testing Library pre-configured for unit and integration testing.
+
+### Running Tests
+
+```bash
+# Run tests in watch mode (re-runs on file changes)
+npm test
+
+# Run tests once (useful for CI/CD)
+npm run test:run
+
+# Run tests with visual UI
+npm run test:ui
+```
+
+### Writing Tests
+
+Tests should be co-located with your components using the `.test.tsx` or `.test.ts` extension:
+
+```typescript
+// app/routes/counter/route.test.tsx
+import { render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
+import { describe, it, expect } from "vitest";
+import { BrowserRouter } from "react-router";
+import Counter from "./route";
+
+describe("Counter Component", () => {
+  it("renders the counter with initial value of 0", () => {
+    render(
+      <BrowserRouter>
+        <Counter />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByText("Counter Demo")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
+  });
+});
+```
+
+### Testing Utilities
+
+The following testing utilities are available:
+
+- **Vitest** - Fast unit test framework
+- **@testing-library/react** - React component testing utilities
+- **@testing-library/user-event** - Simulate user interactions
+- **@testing-library/jest-dom** - Custom DOM matchers
+- **jsdom** - DOM environment for Node.js
+
+Learn more in the [Vitest docs](https://vitest.dev/) and [Testing Library docs](https://testing-library.com/docs/react-testing-library/intro/).
 
 ## Switching Databases
 
@@ -222,12 +285,16 @@ PRISMA_CLIENT_ENGINE_TYPE=binary
 - **[React Router](https://reactrouter.com/)** - Routing and framework docs
 - **[Prisma](https://www.prisma.io/docs)** - ORM documentation
 - **[Tailwind CSS](https://tailwindcss.com/docs)** - Styling documentation
+- **[Vitest](https://vitest.dev/)** - Testing framework documentation
+- **[Testing Library](https://testing-library.com/)** - React Testing Library docs
 
 ### Learning Resources
 
 - [React Router Tutorial](https://reactrouter.com/start/tutorial)
 - [Prisma Quickstart](https://www.prisma.io/docs/getting-started/quickstart)
 - [Tailwind CSS Tutorial](https://tailwindcss.com/docs/installation)
+- [Vitest Getting Started](https://vitest.dev/guide/)
+- [React Testing Library Tutorial](https://testing-library.com/docs/react-testing-library/example-intro)
 
 ## Contributing
 
